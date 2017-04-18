@@ -6,7 +6,7 @@ HTML5 Boilerplate is a frontend template include HTML, CSS, JS for building fast
 
 Open your preferred command line tool and run follow some steps below:
 
-1. __`git clone https://github.com/ninhva/html-boilerplate.git`__.
+1. __`git clone https://github.com/txsang/html-boilerplate.git`__.
 2. `cd html-boilerplate`.
 3. `npm install` automatically to install plugins required for the build script based in `package.json` file.
 4. `npm run dev` to preview and development, then run url `http://localhost:9000` in your browser.
