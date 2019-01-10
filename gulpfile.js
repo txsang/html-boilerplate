@@ -42,12 +42,18 @@ gulp.task('connect:prod', () => {
 
 // Watch
 gulp.task('stream', () => {
-  gulp.watch(gulp.sources.src + '/views/**/*.html', ['fileinclude']);
-  gulp.watch(gulp.sources.src + '/styles/**/*.scss', ['sass']);
+  gulp.watch(gulp.sources.src + '/views/**/*.html', gulp.series('fileinclude'));
+  gulp.watch(gulp.sources.src + '/styles/**/*.scss', gulp.series('sass'));
+  watch('**/*.css').pipe(connect.reload());
+});
+
+// Remove dist, tmp
+gulp.task('clean', () => {
+  return del(['.tmp', gulp.sources.dist])
 });
 
 // Include HTML
-gulp.task('fileinclude', ['clean'], () => {
+gulp.task('fileinclude', () => {
   return gulp.src([gulp.sources.src + '/views/pages/*.html'])
     .pipe(fileinclude({
       prefix: '@@',
@@ -69,7 +75,15 @@ gulp.task('minify', () => {
 });
 
 // Sass
-gulp.task('sass', ['htmlhint'], () => {
+
+gulp.task('sass', gulp.series('clean', function() {
+  return gulp.src(gulp.sources.src + '/styles/**/*.scss')
+    .pipe(sass.sync().on('error', sass.logError))
+    .pipe(gulp.dest('.tmp/styles'))
+    .pipe(connect.reload());
+}));
+
+gulp.task('build-sass', function() {
   return gulp.src(gulp.sources.src + '/styles/**/*.scss')
     .pipe(sass.sync().on('error', sass.logError))
     .pipe(gulp.dest('.tmp/styles'))
@@ -87,12 +101,13 @@ gulp.task('imagemin', () => {
     .pipe(gulp.dest(gulp.sources.dist + '/images'))
 });
 
-// Copy fonts
-gulp.task('htmlhint', ['fileinclude'], () => {
+// Include HTML
+gulp.task('htmlhint', gulp.series('fileinclude', function() {
   return gulp.src(gulp.sources.src + '/*.html')
     .pipe(htmlhint())
     .pipe(htmlhint.failReporter())
-});
+    .pipe(connect.reload());
+}));
 
 // Copy fonts
 gulp.task('copy:fonts', () => {
@@ -101,39 +116,45 @@ gulp.task('copy:fonts', () => {
 });
 
 // HTML beautify
-gulp.task('prettify', ['copy:fonts'], () => {
+
+gulp.task('prettify', gulp.parallel('copy:fonts', function() {
   return gulp.src([gulp.sources.dist + '/*.html'])
     .pipe(prettify({
       indent_char: ' ',
       indent_size: 2
     }))
     .pipe(gulp.dest(gulp.sources.dist));
-});
+}));
 
-// Remove dist, tmp
-gulp.task('clean', () => {
-  return del(['.tmp', gulp.sources.dist])
-});
+
 
 // Build source
-gulp.task('build', () => {
-  runSequence('clean', 'fileinclude', 'htmlhint', 'sass', 'minify', 'imagemin', 'copy:fonts', 'prettify', (e) => {
-    if (!e) {
-      console.log('Success!');
-    }
-  });
-});
+gulp.task('build', function(done) {
+  return gulp.series(
+    'clean',
+    'fileinclude',
+    'htmlhint',
+    'build-sass',
+    'minify',
+    'imagemin',
+    'copy:fonts',
+    'prettify'
+)(done)});
 
 // Start development server
-gulp.task('run:dev', () => {
-  runSequence('clean', 'connect:dev', 'fileinclude', 'sass', 'stream', () => {
-    console.log('Development version is running...');
-  });
-});
+gulp.task('run:dev', gulp.parallel('connect:dev', 'fileinclude', 'sass', 'stream', () => {
+  console.log('Development version is running...');
+}));
 
 // Start product server
-gulp.task('run:prod', () => {
-  runSequence('build', 'connect:prod', () => {
-    console.log('Production version is running...');
-  });
-});
+gulp.task('run:prod', gulp.series(
+  'clean',
+  'fileinclude',
+  'htmlhint',
+  'build-sass',
+  'minify',
+  'imagemin',
+  'copy:fonts',
+  'connect:prod', () => {
+  console.log('Production version is running...');
+}));
