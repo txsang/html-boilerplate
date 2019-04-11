@@ -1,0 +1,7 @@
+.main-container {
+  height: calc(100vh - 196px);
+  padding: 30px 0;
+  @include flexbox();
+  @include align-items(center);
+  @include justify-content(center);
+}

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- include head.html -->
+  @@include('../layouts/head.html', {
+    "title": "HTML Boilerplate"
+  })
+  <!-- include styles.html -->
+  @@include('../layouts/styles.html')
+</head>
+<body>
+  <div class="wrapper">
+    <!-- include header.html -->
+    @@include('../layouts/header.html')
+
+    <!-- include bread scrum.html -->
+    @@include('../partials/bread-scrum.html', {"auth": "auth"})
+
+
+    <main class="main-container">
+      <div class="list-link">
+        <div class="container">
+          <div class="row">
+            @@loop('../partials/item.html', [{
+                "icon": "icon-1",
+                "desc": "HỆ THỐNG QUẢN LÝ VĂN BẢN VÀ HỒ SƠ CÔNG VIỆC",
+                "link": "http://demohscv.qti.vn/Default.aspx?tabid=40&ctl=login&SkinSrc=%5BG%5DSkins/LoginHSCV13/page"
+              },
+              {
+                "icon": "icon-2",
+                "desc": "HỆ THỐNG MỘT CỬA ĐIỆN TỬ",
+                "link": "http://dichvucong.quangnam.gov.vn/expway/smartcloud/expway/page/home.cpx?organViewId=H47"
+              },
+              {
+                "icon": "icon-3",
+                "desc": "CƠ SỞ DỮ LIỆU CHUYÊN NGÀNH",
+                "link": "http://vbpl.vn/quangnam/Pages/Home.aspx"
+              },
+              {
+                "icon": "icon-4",
+                "desc": "QUẢN LÝ CÁN BỘ CÔNG CHỨC",
+                "link": "http://www.noivuqnam.gov.vn/"
+              },
+              {
+                "icon": "icon-5",
+                "desc": "CỞ SỞ DỮ LIỆU QUỐC GIA VỀ VĂN BẢN PHÁP LUẬT",
+                "link": "http://vbpl.vn/quangnam/Pages/Home.aspx"
+              },
+              {
+                "icon": "icon-6",
+                "desc": "TỔNG CỤC QUẢN LÝ THỊ TRƯỜNG",
+                "link": "https://quangnam.dms.gov.vn/"
+              },
+              {
+                "icon": "icon-7",
+                "desc": "SỞ THÔNG TIN TRUYỀN THÔNG",
+                "link": "http://dptqnam.gov.vn/"
+              },
+              {
+                "icon": "icon-8",
+                "desc": "TRUNG TÂM HÀNH CHÍNH CÔNG VÀ XÚC TIẾN ĐẦU TƯ",
+                "link": "http://ipaquangnam.gov.vn/vie/"
+              },
+              {
+                "icon": "icon-9",
+                "desc": "TRUNG TÂM DỊCH VỤ VIỆC LÀM QUẢNG NAM",
+                "link": "http://vlquangnam.vieclamvietnam.gov.vn/"
+              }
+            ])
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- include footer.html -->
+    @@include('../layouts/footer.html')
+  </div>
+
+  <!-- include scripts.html -->
+  @@include('../layouts/scripts.html')
+</body>
+</html>

@@ -1,0 +1,144 @@
+.item-link {
+  @include flexbox();
+  @include align-items(center);
+  padding: 30px;
+  background-color: #FFFFFF;
+  border: 1px solid #E7E7E7;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.13);
+  border-radius: 6px;
+  &:hover {
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.25);
+  }
+  .item-icon {
+    background-color: #1457E9;
+    border-radius: 6px;
+    width: 61px;
+    min-width: 61px;
+    height: 61px;
+    @include flexbox();
+    @include align-items(center);
+    @include justify-content(center);
+    @include rem('font-size', 30);
+    &:before {
+      color: #fff
+    }
+  }
+  .item-content {
+    font-family: 'Roboto';
+    font-weight: 700;
+    @include rem('font-size', 13);
+    @include rem('line-height', 19);
+    color: #333;
+    letter-spacing: 0;
+    width: 100%;
+    padding: 0 15px;
+  }
+  .icon-arrow {
+    width: 20px;
+    height: 20px;
+    color: #aaa;
+    @include flexbox();
+    @include align-items(center);
+    @include justify-content(center);
+    @include rem('font-size', 20);
+  }
+}
+
+.items {
+  margin-bottom: 40px;
+  &:nth-child(2) {
+    .item-icon {
+      background-color: #0FD8A2
+    }
+  }
+  &:nth-child(3) {
+    .item-icon {
+      background-color: #F06544
+    }
+  }
+  &:nth-child(4) {
+    .item-icon {
+      background-color: #ED0174
+    }
+  }
+  &:nth-child(5) {
+    .item-icon {
+      background-color: #8338EB
+    }
+  }
+  &:nth-child(6) {
+    .item-icon {
+      background-color: #E9AB00
+    }
+  }
+  &:nth-child(7) {
+    margin-bottom: 0;
+    .item-icon {
+      background-color: #14C864
+    }
+  }
+  &:nth-child(8) {
+    margin-bottom: 0;
+    .item-icon {
+      background-color: #2D5A93
+    }
+  }
+  &:nth-child(9) {
+    margin-bottom: 0;
+    .item-icon {
+      background-color: #1BADF5
+    }
+  }
+}
+
+.scrum-container {
+  background: #9A5F4C;
+  padding: 9px 15px;
+  color: #FFFFFF;
+  height: 42px;
+  .container {
+    @include flexbox();
+    @include align-items(center);
+    @include justify-content(space-between);
+  }
+  .scrum-desc {
+    font-family: 'Roboto';
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    line-height: 22px;
+  }
+  .scrum-action {
+    .scrum-auth {
+      display: none;
+    }
+
+    &.auth {
+      .scrum-un-auth {
+        display: none;
+      }
+      .scrum-auth {
+        @include flexbox();
+      }
+    }
+  }
+  .link {
+    font-family: 'Roboto';
+    font-size: 12px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    line-height: 20px;
+  }
+  .avt {
+    @include inline-flex();
+    @include align-items(center);
+    @include justify-content(center);
+    .icon-user {
+      font-size: 20px;
+      margin-right: 5px;
+    }
+  }
+  .scrum-auth {
+    @include align-items(center);
+  }
+}

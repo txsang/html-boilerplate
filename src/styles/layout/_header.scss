@@ -1,0 +1,37 @@
+.header-container {
+  height: 110px;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-color: #fff;
+  padding: 15px;
+  .container {
+    @include flexbox();
+    @include align-items(center);
+  }
+  .logo {
+    width: 80px;
+    height: 80px;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  .header-title {
+    padding-left: 20px;
+    font-family: 'UTMAvoBold';
+    font-size: 24px;
+    color: #9A5F4C;
+    letter-spacing: 0;
+    line-height: 33px;
+    margin-bottom: 5px;
+  }
+  .header-desc {
+    padding-left: 20px;
+    font-family: 'UTMAvoBold';
+    font-size: 17px;
+    color: #333333;
+    letter-spacing: 0.59px;
+    line-height: 23px;
+  }
+}
