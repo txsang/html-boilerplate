@@ -142,3 +142,67 @@
     @include align-items(center);
   }
 }
+
+.form {
+  background: #F9F9F9;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.21);
+  border-radius: 4px;
+  width: 520px;
+  max-width: 100%;
+  padding: 60px;
+  .title {
+    font-family: 'UTMAvoBold';
+    font-size: 20px;
+    color: #333333;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 28px;
+    margin-bottom: 30px;
+    text-align: left;
+  }
+  .input {
+    background: #FFFFFF;
+    border: 1px solid #E2E2E2;
+    border-radius: 4px;
+    font-family: 'Roboto';
+    font-size: 12px;
+    color: #A5A5A5;
+    letter-spacing: 0;
+    line-height: 16px;
+    margin-bottom: 20px;
+    display: block;
+    text-align: left;
+    height: 46px;
+    width: 100%;
+    padding: 0 15px;
+  }
+  .label {
+    font-family: 'Roboto';
+    font-size: 12px;
+    color: #333333;
+    letter-spacing: 0;
+    line-height: 16px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: block;
+    .required {
+      font-family: 'Roboto';
+      color: red;
+    }
+  }
+  .submit {
+    background: #9A5F4C;
+    border: 1px solid #9A5F4C;
+    border-radius: 4px;
+    font-family: 'Roboto';
+    font-weight: 700;
+    font-size: 12px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    height: 46px;
+    line-height: 16px;
+    @include flexbox();
+    @include align-items(center);
+    @include justify-content(center);
+  }
+}
