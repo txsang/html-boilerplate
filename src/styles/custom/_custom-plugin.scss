@@ -185,6 +185,7 @@
     margin-bottom: 10px;
     width: 100%;
     display: block;
+    font-weight: 700;
     .required {
       font-family: 'Roboto';
       color: red;
@@ -204,5 +205,25 @@
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
+  }
+}
+
+.wrap-actions {
+  @include flexbox();
+  @include align-items(center);
+  @include justify-content(space-between);
+  margin-bottom: 15px;
+  font-family: 'Roboto';
+  font-weight: 700;
+  font-size: 12px;
+  color: #333333;
+  letter-spacing: 0;
+  line-height: 16px;
+  .checkbox {
+    @include flexbox();
+    @include align-items(center);
+    input {
+      margin-right: 10px;
+    }
   }
 }
