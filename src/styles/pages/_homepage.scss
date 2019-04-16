@@ -4,4 +4,9 @@
   @include flexbox();
   @include align-items(center);
   @include justify-content(center);
+  @include breakpoint(830) {
+    padding: 15px 0;
+    height: auto;
+    min-height: calc(100vh - 218px);
+  }
 }

@@ -4,7 +4,13 @@
   background-repeat: no-repeat;
   background-position: right center;
   background-color: #fff;
-  padding: 15px;
+  padding: 15px 0;
+  @include breakpoint(768) {
+    height: auto;
+  }
+  @include breakpoint(480) {
+    padding: 5px 0;
+  }
   .container {
     @include flexbox();
     @include align-items(center);
@@ -25,6 +31,14 @@
     letter-spacing: 0;
     line-height: 33px;
     margin-bottom: 5px;
+    @include breakpoint(768) {
+      text-shadow: 0 0 3px #fff;
+    }
+    @include breakpoint(580) {
+      font-size: 18px;
+      line-height: 23px;
+      margin-bottom: 0;
+    }
   }
   .header-desc {
     padding-left: 20px;
@@ -33,5 +47,11 @@
     color: #333333;
     letter-spacing: 0.59px;
     line-height: 23px;
+    @include breakpoint(768) {
+      text-shadow: 0 0 3px #fff;
+    }
+    @include breakpoint(580) {
+      font-size: 14px;
+    }
   }
 }
