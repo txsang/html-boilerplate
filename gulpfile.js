@@ -12,6 +12,9 @@ var imagemin = require('gulp-imagemin');
 var del = require('del');
 var runSequence = require('run-sequence');
 var htmlhint = require("gulp-htmlhint");
+var rev = require('gulp-rev');
+var revReplace = require("gulp-rev-replace");
+var merge = require('gulp-merge-json');
 
 gulp.sources = {
   src:  './src',
@@ -126,7 +129,43 @@ gulp.task('prettify', gulp.parallel('copy:fonts', function() {
     .pipe(gulp.dest(gulp.sources.dist));
 }));
 
+gulp.task('ref:js', () => {
+  return gulp.src(gulp.sources.dist + '/script/*.js')
+    .pipe(rev())
+    .pipe(gulp.dest(gulp.sources.dist + '/script'))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest(gulp.sources.dist + '/manifest/script'))
+});
 
+gulp.task('ref:css', () => {
+  return gulp.src(gulp.sources.dist + '/style/*.css')
+    .pipe(rev())
+    .pipe(gulp.dest(gulp.sources.dist + '/style'))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest(gulp.sources.dist + '/manifest/style'))
+});
+
+gulp.task('ref:image', () => {
+  return gulp.src(gulp.sources.dist + '/images/**/*')
+    .pipe(rev())
+    .pipe(gulp.dest(gulp.sources.dist + '/images'))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest(gulp.sources.dist + '/manifest/images'))
+});
+
+gulp.task("concat-manifest",function() {
+  return gulp.src(gulp.sources.dist + '/manifest/**/*.json')
+    .pipe(merge({fileName: 'manifest.json'}))
+    .pipe(gulp.dest(gulp.sources.dist + '/manifest/'));
+});
+
+gulp.task("revreplace",function() {
+  var manifest = gulp.src(gulp.sources.dist + "/manifest/manifest.json");
+
+  return gulp.src(gulp.sources.dist + "/*.html")
+    .pipe(revReplace({manifest: manifest}))
+    .pipe(gulp.dest(gulp.sources.dist));
+});
 
 // Build source
 gulp.task('build', function(done) {
@@ -138,7 +177,12 @@ gulp.task('build', function(done) {
     'minify',
     'imagemin',
     'copy:fonts',
-    'prettify'
+    'prettify',
+    'ref:js',
+    'ref:css',
+    'ref:image',
+    'concat-manifest',
+    'revreplace'
 )(done)});
 
 // Start development server
@@ -155,6 +199,12 @@ gulp.task('run:prod', gulp.series(
   'minify',
   'imagemin',
   'copy:fonts',
+  'prettify',
+  'ref:js',
+  'ref:css',
+  'ref:image',
+  'concat-manifest',
+  'revreplace',
   'connect:prod', () => {
   console.log('Production version is running...');
 }));
